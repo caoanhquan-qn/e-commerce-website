@@ -7,18 +7,20 @@ import Header from './components/header/Header';
 import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUpPage';
 import { auth, createUserProfileDocument } from './components/utils/fireBase';
 
+import { UserContext } from './context/UserContext';
+
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentUser: null,
-    };
+  constructor(props) {
+    super(props);
   }
   unsubscribeFromAuth = null;
+  static contextType = UserContext;
 
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
+      // observer pattern
+      const { setCurrentUser } = this.context;
+      setCurrentUser(user);
       createUserProfileDocument(user);
     });
   }
@@ -30,7 +32,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header currentUser={this.state.currentUser} />
+        <Header currentUser={this.context.currentUser} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />

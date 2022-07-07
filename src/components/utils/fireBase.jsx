@@ -53,4 +53,5 @@ export const signInWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   return await auth.signInWithEmailAndPassword(email, password);
 };
+export const signOut = () => auth.signOut();
 export default firebase;

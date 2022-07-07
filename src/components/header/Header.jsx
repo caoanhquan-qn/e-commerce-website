@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/img/crown.svg';
 import './Header.scss';
-
-import { auth } from '../../components/utils/fireBase';
+import { signOut } from '../../components/utils/fireBase';
 
 function Header({ currentUser }) {
   return (
@@ -19,7 +18,7 @@ function Header({ currentUser }) {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <div className="option" onClick={signOut}>
             SIGN OUT
           </div>
         ) : (
