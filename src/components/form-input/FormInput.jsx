@@ -11,12 +11,9 @@ function FormInput({ name, type, value, label, handleChange }) {
         value={value}
         onChange={handleChange}
         required
+        max={type === 'password' ? 6 : undefined}
       />
-      {label ? (
-        <label className={`${value.length ? 'shrink' : ''} form-input-label`}>
-          {label}
-        </label>
-      ) : null}
+      {label ? <label className={`${value.length ? 'shrink' : ''} form-input-label`}>{label}</label> : null}
     </div>
   );
 }

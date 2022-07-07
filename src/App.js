@@ -20,7 +20,6 @@ class App extends React.Component {
     this.unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       this.setState({ currentUser: user });
       createUserProfileDocument(user);
-      console.log(user);
     });
   }
 

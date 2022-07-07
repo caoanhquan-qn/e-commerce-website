@@ -11,7 +11,7 @@ const config = {
   appId: '1:8284649763:web:27a36bdbadffa8342fb496',
 };
 
-export const createUserProfileDocument = async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth, additionalData = {}) => {
   if (!userAuth) return;
   const userRef = firestore.doc(`/users/${userAuth.uid}`);
   const snapShot = await userRef.get();
@@ -35,12 +35,22 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 firebase.initializeApp(config);
 
-export const auth = firebase.auth();
+export const auth = firebase.auth(); // singleton
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await auth.createUserWithEmailAndPassword(email, password);
+};
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+export const signInWithGoogleRedirect = () => auth.signInWithRedirect(googleProvider);
+export const signInWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await auth.signInWithEmailAndPassword(email, password);
+};
 export default firebase;
