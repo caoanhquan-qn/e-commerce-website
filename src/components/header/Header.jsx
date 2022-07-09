@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/img/crown.svg';
 import './Header.scss';
 import { signOut } from '../../components/utils/fireBase';
+import { UserContext } from '../../context/UserContext';
 
-function Header({ currentUser }) {
+function Header() {
+  const { currentUser } = useContext(UserContext);
   return (
     <div className="header">
       <Link className="logo-container" to="/">
