@@ -54,4 +54,5 @@ export const signInWithEmailAndPassword = async (email, password) => {
   return await auth.signInWithEmailAndPassword(email, password);
 };
 export const signOut = () => auth.signOut();
+export const onAuthStateChanged = (callback) => auth.onAuthStateChanged(callback);
 export default firebase;
