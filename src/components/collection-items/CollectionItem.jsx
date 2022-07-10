@@ -1,4 +1,5 @@
 import React from 'react';
+import Product from './components/Product';
 import './CollectionItem.scss';
 
 function CollectionItem(props) {
@@ -8,19 +9,7 @@ function CollectionItem(props) {
       {collectionItem
         .filter((_, idx) => idx < 4)
         .map((item) => {
-          return (
-            <div key={item.id} className="collection-item">
-              <div
-                className="image"
-                style={{ backgroundImage: `url(${item.imageUrl})` }}
-              ></div>
-              {/* <img key={item.id} src={item.imageUrl} alt={item.name} /> */}
-              <div className="item-content">
-                <div className="name">{item.name}</div>
-                <div className="price">{item.price}</div>
-              </div>
-            </div>
-          );
+          return <Product key={item.id} imageUrl={item.imageUrl} name={item.name} price={item.price} />;
         })}
     </div>
   );

@@ -6,11 +6,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { UserProvider } from './context/UserContext';
+import { ProductProvider } from './context/ProductContext';
+import { CartProvider } from './context/CartContext';
 
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
-      <App />
+      <ProductProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </ProductProvider>
     </UserProvider>
   </BrowserRouter>,
   document.getElementById('root')

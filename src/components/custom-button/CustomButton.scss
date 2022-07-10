@@ -27,4 +27,15 @@
       border: none;
     }
   }
+  &.add-to-cart-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 30%;
+    background-color: white;
+    color: black;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
 }
