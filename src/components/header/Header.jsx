@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/img/crown.svg';
+import { ReactComponent as Logo } from '../../assets/svg/crown.svg';
 import './Header.scss';
 import { signOut } from '../../components/utils/fireBase';
 import { UserContext } from '../../context/UserContext';
+import CartIcon from '../cart-icon/CartIcon';
 
 function Header() {
   const { currentUser } = useContext(UserContext);
@@ -28,6 +29,7 @@ function Header() {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
     </div>
   );

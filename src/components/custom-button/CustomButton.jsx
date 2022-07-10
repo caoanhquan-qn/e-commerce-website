@@ -1,12 +1,14 @@
 import React from 'react';
 import './CustomButton.scss';
 
-function CustomButton({ children, isGoogleSignIn, ...otherProps }) {
+function CustomButton({ children, buttonType, ...otherProps }) {
+  const buttonStyle = {
+    isGoogleSignIn: 'google-sign-in',
+    addToCart: 'add-to-cart-btn',
+    default: '',
+  };
   return (
-    <button
-      className={`${isGoogleSignIn ? 'google-sign-in' : ''} custom-button`}
-      {...otherProps}
-    >
+    <button className={`${buttonStyle[buttonType]} custom-button`} {...otherProps}>
       {children}
     </button>
   );
