@@ -4,11 +4,11 @@ import { CartContext } from '../../context/CartContext';
 import './CartIcon.scss';
 
 const CartIcon = ({ onClick }) => {
-  const { cartCounter } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
   return (
     <div className="cart-icon-container" onClick={onClick}>
       <ShoppingBag />
-      <span className="cart-counter">{cartCounter}</span>
+      <span className="cart-counter">{cartItems.length}</span>
     </div>
   );
 };

@@ -5,13 +5,14 @@ import { CartContext } from '../../../context/CartContext';
 
 const ADD_TO_CART_BUTTON_TITLE = 'ADD TO CART';
 
-const Item = ({ imageUrl, name, price }) => {
+const Product = ({ product }) => {
+  const { imageUrl, name, price } = product;
   const [isShown, setIsShown] = useState(false);
-  const { cartCounter, setCartCounter } = useContext(CartContext);
+  const { addItemToCart } = useContext(CartContext);
   const handleOnMouseEnter = () => setIsShown(true);
   const handleOnMouseLeave = () => setIsShown(false);
   const handleOnBtnClick = () => {
-    setCartCounter(cartCounter + 1);
+    addItemToCart(product);
   };
   return (
     <div className="collection-item">
@@ -29,4 +30,4 @@ const Item = ({ imageUrl, name, price }) => {
     </div>
   );
 };
-export default Item;
+export default Product;
