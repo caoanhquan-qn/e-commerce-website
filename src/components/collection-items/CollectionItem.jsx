@@ -8,8 +8,8 @@ function CollectionItem(props) {
     <div className="collection-items">
       {collectionItem
         .filter((_, idx) => idx < 4)
-        .map((item) => {
-          return <Product key={item.id} imageUrl={item.imageUrl} name={item.name} price={item.price} />;
+        .map((product) => {
+          return <Product key={product.id} product={product} />;
         })}
     </div>
   );
