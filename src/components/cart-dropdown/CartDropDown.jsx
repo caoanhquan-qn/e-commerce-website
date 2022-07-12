@@ -30,9 +30,11 @@ const CartDropDown = ({ onClickOutside }) => {
   }, [onClickOutside]);
   return (
     <div ref={ref} className="cart-dropdown-container">
-      {cartItems.map((cartItem, idx) => {
-        return <CartItem key={idx} item={cartItem} />;
-      })}
+      <div className="cart-items-list">
+        {cartItems.map((cartItem, idx) => {
+          return <CartItem key={idx} item={cartItem} />;
+        })}
+      </div>
       <CustomButton buttonType="default">{CHECKOUT_BUTTON_TITLE}</CustomButton>
     </div>
   );

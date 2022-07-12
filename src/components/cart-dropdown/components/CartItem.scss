@@ -1,4 +1,18 @@
 .cart-item-container {
-  width: 50%;
-  height: 10%;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  gap: 10px 30px;
+  .cart-item-img {
+    width: 30%;
+    height: 80px;
+  }
+  .cart-item-content {
+    display: flex;
+    flex-direction: column;
+  }
 }
