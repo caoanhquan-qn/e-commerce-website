@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import CustomButton from '../custom-button/CustomButton';
 import './CartDropDown.scss';
 import { CartContext } from '../../context/CartContext';
@@ -10,16 +11,28 @@ const CartDropDown = ({ onClickOutside }) => {
   const { cartItems } = useContext(CartContext);
   const cartIcon = document.querySelector('.cart-icon-container');
   const productImg = document.querySelectorAll('.image');
+  const removeIcon = document.querySelectorAll('.remove-icon');
+  const plusMinusIcon = document.querySelectorAll('.plus-minus-icon');
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      let onImgClick = false;
+      let clicked = false;
       productImg.length > 0 &&
         productImg.forEach((img) => {
-          if (img.contains(event.target)) onImgClick = true;
+          if (img.contains(event.target)) clicked = true;
         });
 
-      if (ref.current && cartIcon && !ref.current.contains(event.target) && !cartIcon.contains(event.target) && !onImgClick) {
+      removeIcon.length > 0 &&
+        removeIcon.forEach((icon) => {
+          if (icon.contains(event.target)) clicked = true;
+        });
+
+      plusMinusIcon.length > 0 &&
+        plusMinusIcon.forEach((icon) => {
+          if (icon.contains(event.target)) clicked = true;
+        });
+
+      if (ref.current && cartIcon && !ref.current.contains(event.target) && !cartIcon.contains(event.target) && !clicked) {
         onClickOutside && onClickOutside();
       }
     };
@@ -31,11 +44,17 @@ const CartDropDown = ({ onClickOutside }) => {
   return (
     <div ref={ref} className="cart-dropdown-container">
       <div className="cart-items-list">
-        {cartItems.map((cartItem, idx) => {
-          return <CartItem key={idx} item={cartItem} />;
-        })}
+        {cartItems.length > 0 ? (
+          cartItems.map((cartItem, idx) => {
+            return <CartItem key={idx} item={cartItem} />;
+          })
+        ) : (
+          <span>Your cart is empty</span>
+        )}
       </div>
-      <CustomButton buttonType="default">{CHECKOUT_BUTTON_TITLE}</CustomButton>
+      <Link to="/checkout">
+        <CustomButton buttonType="default">{CHECKOUT_BUTTON_TITLE}</CustomButton>
+      </Link>
     </div>
   );
 };

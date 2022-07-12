@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/svg/crown.svg';
 import './Header.scss';
 import { signOut } from '../../components/utils/fireBase';
@@ -8,11 +8,17 @@ import CartIcon from '../cart-icon/CartIcon';
 import CartDropDown from '../cart-dropdown/CartDropDown';
 
 function Header() {
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const location = useLocation();
   const { currentUser } = useContext(UserContext);
-  const [toggleCartDropDown, setToggleCartDropDown] = useState(false);
   const handleClickCartIcon = () => {
-    setToggleCartDropDown(!toggleCartDropDown);
+    setIsCartOpen(!isCartOpen);
   };
+
+  useEffect(() => {
+    setIsCartOpen(false);
+  }, [location.pathname]);
+
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -36,7 +42,7 @@ function Header() {
         )}
         <CartIcon onClick={handleClickCartIcon} />
       </div>
-      {toggleCartDropDown ? <CartDropDown onClickOutside={() => setToggleCartDropDown(false)} /> : null}
+      {isCartOpen ? <CartDropDown onClickOutside={() => setIsCartOpen(false)} /> : null}
     </div>
   );
 }
