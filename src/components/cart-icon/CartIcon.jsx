@@ -5,10 +5,11 @@ import './CartIcon.scss';
 
 const CartIcon = ({ onClick }) => {
   const { cartItems } = useContext(CartContext);
+  const totalAmount = cartItems.map((item) => item.quantity).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
   return (
     <div className="cart-icon-container" onClick={onClick}>
       <ShoppingBag />
-      <span className="cart-counter">{cartItems.length}</span>
+      <span className="cart-counter">{totalAmount}</span>
     </div>
   );
 };
