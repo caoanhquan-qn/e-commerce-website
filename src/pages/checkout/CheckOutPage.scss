@@ -1,0 +1,10 @@
+.checkout-page {
+  display: flex;
+  flex-direction: column;
+  margin: 50px 250px;
+  .checkout-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
