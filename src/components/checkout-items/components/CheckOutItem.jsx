@@ -6,24 +6,38 @@ import { CartContext } from '../../../context/CartContext';
 import { ReactComponent as PlusIcon } from '../../../assets/svg/plus-icon.svg';
 import { ReactComponent as MinusIcon } from '../../../assets/svg/minus-icon.svg';
 
+const removeType = {
+  minus: 'minus',
+  remove: 'remove',
+};
+
 const CheckOutItem = ({ checkoutItem }) => {
-  const { addItemToCart } = useContext(CartContext);
+  const { addItemToCart, removeItemFromCart } = useContext(CartContext);
   const { imageUrl, name, quantity, price } = checkoutItem;
+  const handleAddItemToCart = () => {
+    addItemToCart(checkoutItem);
+  };
+  const handleMinusItemFromCart = () => {
+    removeItemFromCart(checkoutItem, removeType['minus']);
+  };
+  const handleRemoveCheckOutItem = () => {
+    removeItemFromCart(checkoutItem, removeType['remove']);
+  };
   return (
     <div className="checkout-item">
       <img src={imageUrl} />
-      <span>{name}</span>
-      <span>
-        <div className="plus-minus-icon" onClick={() => {}}>
+      <span className="checkout-item-name">{name}</span>
+      <div className="checkout-item-quantity">
+        <div className="plus-minus-icon" onClick={handleMinusItemFromCart}>
           <MinusIcon />
         </div>
-        {quantity}
-        <div className="plus-minus-icon" onClick={() => addItemToCart(checkoutItem)}>
+        <span>{quantity}</span>
+        <div className="plus-minus-icon" onClick={handleAddItemToCart}>
           <PlusIcon />
         </div>
-      </span>
-      <span>{price}</span>
-      <img className="remove-icon" src={removeIcon} />
+      </div>
+      <span className="checkout-item-price">{price}</span>
+      <img className="remove-icon" src={removeIcon} onClick={handleRemoveCheckOutItem} />
     </div>
   );
 };

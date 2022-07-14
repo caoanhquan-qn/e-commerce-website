@@ -1,5 +1,20 @@
-.plus-minus-icon {
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: 700;
+.checkout-item {
+  .checkout-item-quantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    min-width: 100px;
+    margin-left: -50px;
+    .plus-minus-icon {
+      cursor: pointer;
+    }
+  }
+  .checkout-item-name {
+    min-width: 150px;
+  }
+  .checkout-item-price {
+    min-width: 100px;
+  }
 }
