@@ -15,7 +15,7 @@ const CheckOutPage = () => {
       <CheckOutHeader />
       <CheckOutItems checkOutItems={cartItems} />
       <div className="checkout-footer">
-        <div>TOTAL: ${total}</div>
+        <div className="total">TOTAL: ${total}</div>
         <div>
           <CustomButton buttonType="default">Pay Now</CustomButton>
         </div>

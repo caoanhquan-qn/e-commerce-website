@@ -1,3 +1,4 @@
+$base-color: 'black';
 .menu-item {
   min-width: 30%;
   height: 240px;
@@ -52,7 +53,7 @@
     font-weight: bold;
     margin-bottom: 6px;
     font-size: 22px;
-    color: #4a4a4a;
+    color: $base-color;
   }
   .subtitle {
     font-weight: lighter;
