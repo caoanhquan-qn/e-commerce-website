@@ -1,61 +1,31 @@
 import React from 'react';
 import MenuItem from '../menu-item/MenuItem';
+import { getCollectionsAndDocuments } from '../utils/fireBase';
 import './Directory.scss';
 
 class Directory extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sections: [
-        {
-          title: 'hats',
-          imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-          id: 1,
-          linkUrl: 'shop/hats',
-        },
-        {
-          title: 'jackets',
-          imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-          id: 2,
-          linkUrl: 'shop/jackets',
-        },
-        {
-          title: 'sneakers',
-          imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-          id: 3,
-          linkUrl: 'shop/sneakers',
-        },
-        {
-          title: 'womens',
-          imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-          size: 'large',
-          id: 4,
-          linkUrl: 'shop/womens',
-        },
-        {
-          title: 'mens',
-          imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-          size: 'large',
-          id: 5,
-          linkUrl: 'shop/mens',
-        },
-      ],
+      sections: [],
     };
+  }
+  componentDidMount() {
+    const fetchSectionData = async () => {
+      return await getCollectionsAndDocuments('sections');
+    };
+    fetchSectionData()
+      .then((res) => {
+        const SECTION_DATA = res.sort((a, b) => a.id - b.id);
+        this.setState({ sections: SECTION_DATA });
+      })
+      .catch((error) => console.log(error));
   }
   render() {
     return (
       <div className="directory-menu">
         {this.state.sections.map(({ title, id, imageUrl, size, linkUrl }) => {
-          return (
-            <MenuItem
-              key={id}
-              title={title.toUpperCase()}
-              subtitle="SHOP NOW"
-              imageUrl={imageUrl}
-              size={size}
-              linkUrl={linkUrl}
-            />
-          );
+          return <MenuItem key={id} title={title.toUpperCase()} subtitle="SHOP NOW" imageUrl={imageUrl} size={size} linkUrl={linkUrl} />;
         })}
       </div>
     );
