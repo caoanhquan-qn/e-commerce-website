@@ -1,9 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CollectionItem from '../collection-items/CollectionItem';
 import './Collections.scss';
 
-function Collections(props) {
-  const { collections } = props;
+function Collections({ collections }) {
+  const navigate = useNavigate();
+  const handleClickTitle = (event) => {
+    const title = event.target.innerHTML.toLowerCase();
+    navigate(`/shop/${title}`);
+  };
+
   return (
     <div className="collections">
       <h1>Collections</h1>
@@ -11,8 +17,10 @@ function Collections(props) {
         {collections.map((collection) => {
           return (
             <div key={collection.id}>
-              <h2 className="title">{collection.title.toUpperCase()}</h2>
-              <CollectionItem collectionItem={collection.items} />
+              <h2 className="title" onClick={handleClickTitle}>
+                {collection.title.toUpperCase()}
+              </h2>
+              <CollectionItem collectionItem={collection.items} productNumber={4} />
             </div>
           );
         })}
