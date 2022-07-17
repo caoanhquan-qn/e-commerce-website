@@ -17,8 +17,10 @@ function Collections({ collections }) {
         {collections.map((collection) => {
           return (
             <div key={collection.id}>
-              <h2 className="title" onClick={handleClickTitle}>
-                {collection.title.toUpperCase()}
+              <h2>
+                <span className="title" onClick={handleClickTitle}>
+                  {collection.title.toUpperCase()}
+                </span>
               </h2>
               <CollectionItem collectionItem={collection.items} productNumber={4} />
             </div>
