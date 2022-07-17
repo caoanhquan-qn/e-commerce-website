@@ -1,0 +1,11 @@
+.collection-page-container {
+  h2 {
+    text-align: center;
+  }
+  .collection-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px 30px;
+  }
+}
