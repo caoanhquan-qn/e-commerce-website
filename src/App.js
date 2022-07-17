@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/homepage/HomePage';
-import HatsPage from './pages/hats/HatsPage';
 import ShopPage from './pages/shop/ShopPage';
 import ContactPage from './pages/contact/ContactPage';
+import CollectionPage from './components/collection-page/CollectionPage';
 import Header from './components/header/Header';
 import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUpPage';
 import CheckOutPage from './pages/checkout/CheckOutPage';
@@ -19,7 +19,11 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/shop" element={<ShopPage />} />
-          <Route path="/shop/hats" element={<HatsPage />} />
+          <Route path="/shop/hats" element={<CollectionPage collectionName="hats" />} />
+          <Route path="/shop/jackets" element={<CollectionPage collectionName="jackets" />} />
+          <Route path="/shop/sneakers" element={<CollectionPage collectionName="sneakers" />} />
+          <Route path="/shop/mens" element={<CollectionPage collectionName="mens" />} />
+          <Route path="/shop/womens" element={<CollectionPage collectionName="womens" />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/signin" element={<SignInSignUpPage />} />
           <Route path="/checkout" element={<CheckOutPage />} />

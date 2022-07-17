@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
-import CollectionItem from '../../components/collection-items/CollectionItem';
+import CollectionItem from '../collection-items/CollectionItem';
 import { ProductContext } from '../../context/ProductContext';
 import Spinner from 'react-bootstrap/Spinner';
+import './CollectionPage.scss';
 
-const HatsPage = () => {
+const CollectionPage = ({ collectionName }) => {
   const { collections } = useContext(ProductContext);
-  const hatsCollection = collections.find((collection) => collection.title.toLowerCase() === 'hats');
-  if (hatsCollection) {
-    const { title, items } = hatsCollection;
+  const collection = collections.find((collection) => collection.title.toLowerCase() === collectionName);
+  if (collection) {
+    const { title, items } = collection;
     return (
-      <div>
+      <div className="collection-page-container">
         <h2>{title.toUpperCase()}</h2>
         <CollectionItem collectionItem={items} productNumber={items.length} />
       </div>
@@ -19,4 +20,4 @@ const HatsPage = () => {
   }
 };
 
-export default HatsPage;
+export default CollectionPage;
