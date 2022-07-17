@@ -15,18 +15,19 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/shop" element={<ShopPage />} />
-          <Route path="/shop/hats" element={<CollectionPage collectionName="hats" />} />
-          <Route path="/shop/jackets" element={<CollectionPage collectionName="jackets" />} />
-          <Route path="/shop/sneakers" element={<CollectionPage collectionName="sneakers" />} />
-          <Route path="/shop/mens" element={<CollectionPage collectionName="mens" />} />
-          <Route path="/shop/womens" element={<CollectionPage collectionName="womens" />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/signin" element={<SignInSignUpPage />} />
-          <Route path="/checkout" element={<CheckOutPage />} />
+          <Route path="/" element={<Header />}>
+            <Route index element={<HomePage />} />
+            <Route path="shop" element={<ShopPage />}></Route>
+            <Route path="shop/hats" element={<CollectionPage collectionName="hats" />} />
+            <Route path="/shop/jackets" element={<CollectionPage collectionName="jackets" />} />
+            <Route path="/shop/sneakers" element={<CollectionPage collectionName="sneakers" />} />
+            <Route path="/shop/mens" element={<CollectionPage collectionName="mens" />} />
+            <Route path="/shop/womens" element={<CollectionPage collectionName="womens" />} />
+            <Route path="contact" element={<ContactPage />} />
+            <Route path="signin" element={<SignInSignUpPage />} />
+            <Route path="checkout" element={<CheckOutPage />} />
+          </Route>
         </Routes>
       </div>
     );
