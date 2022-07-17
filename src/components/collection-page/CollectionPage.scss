@@ -3,9 +3,12 @@
     text-align: center;
   }
   .collection-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 10px 30px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 30px;
+    row-gap: 10px;
+    .collection-item {
+      width: 100%;
+    }
   }
 }
