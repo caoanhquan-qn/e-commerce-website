@@ -40,7 +40,7 @@ const CartDropDown = ({ onClickOutside }) => {
     return () => {
       document.removeEventListener('click', handleClickOutside, true);
     };
-  }, [onClickOutside]);
+  }, [onClickOutside]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div ref={ref} className="cart-dropdown-container">
       <div className="cart-items-list">

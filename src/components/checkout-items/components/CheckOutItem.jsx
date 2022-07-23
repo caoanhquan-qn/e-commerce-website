@@ -25,7 +25,7 @@ const CheckOutItem = ({ checkoutItem }) => {
   };
   return (
     <div className="checkout-item">
-      <img src={imageUrl} />
+      <img alt={name} src={imageUrl} />
       <span className="checkout-item-name">{name}</span>
       <div className="checkout-item-quantity">
         <div className="plus-minus-icon" onClick={handleMinusItemFromCart}>
@@ -37,7 +37,7 @@ const CheckOutItem = ({ checkoutItem }) => {
         </div>
       </div>
       <span className="checkout-item-price">{price}</span>
-      <img className="remove-icon" src={removeIcon} onClick={handleRemoveCheckOutItem} />
+      <img alt="remove icon" className="remove-icon" src={removeIcon} onClick={handleRemoveCheckOutItem} />
     </div>
   );
 };

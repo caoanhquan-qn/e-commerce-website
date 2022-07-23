@@ -9,9 +9,6 @@ import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUpPage';
 import CheckOutPage from './pages/checkout/CheckOutPage';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div>
