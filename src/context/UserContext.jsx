@@ -1,5 +1,7 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { onAuthStateChanged, createUserProfileDocument } from '../components/utils/fireBase';
+import { setCurrentUser } from '../redux/action';
+import { initialUserState, userReducer } from '../redux/reducer';
 
 // as the actual value we want to access
 export const UserContext = createContext({
@@ -9,11 +11,11 @@ export const UserContext = createContext({
 
 // Provider
 export const UserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [{ currentUser }, dispatch] = useReducer(userReducer, initialUserState);
   const value = { currentUser, setCurrentUser };
   useEffect(() => {
     const unsubscribeFromAuth = onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      dispatch(setCurrentUser(user));
       createUserProfileDocument(user);
     });
     return unsubscribeFromAuth;
