@@ -1,25 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
+import App from './App';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { UserProvider } from './context/UserContext';
-import { ProductProvider } from './context/ProductContext';
-import { CartProvider } from './context/CartContext';
-
 ReactDOM.render(
-  <BrowserRouter>
-    <UserProvider>
-      <ProductProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </ProductProvider>
-    </UserProvider>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 

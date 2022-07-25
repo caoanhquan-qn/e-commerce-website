@@ -1,18 +1,20 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import CustomButton from '../../custom-button/CustomButton';
 import './Product.scss';
-import { CartContext } from '../../../context/CartContext';
+
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../../redux/action';
 
 const ADD_TO_CART_BUTTON_TITLE = 'ADD TO CART';
 
 const Product = ({ product }) => {
   const { imageUrl, name, price } = product;
   const [isShown, setIsShown] = useState(false);
-  const { addItemToCart } = useContext(CartContext);
+  const dispatch = useDispatch();
   const handleOnMouseEnter = () => setIsShown(true);
   const handleOnMouseLeave = () => setIsShown(false);
   const handleOnBtnClick = () => {
-    addItemToCart(product);
+    dispatch(addItem(product));
   };
   return (
     <div className="collection-item">

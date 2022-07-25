@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import CheckOutHeader from '../../components/checkout-header/CheckOutHeader';
 import CustomButton from '../../components/custom-button/CustomButton';
 import CheckOutItems from '../../components/checkout-items/CheckOutItems';
 import './CheckOutPage.scss';
-import { CartContext } from '../../context/CartContext';
+
 const CheckOutPage = () => {
-  const { cartItems } = useContext(CartContext);
+  const { cartItems } = useSelector((state) => state.cart);
   let total = 0;
   cartItems.forEach((item) => {
     total += item.quantity * item.price;
