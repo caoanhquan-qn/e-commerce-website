@@ -1,27 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import removeIcon from '../../../assets/img/remove.png';
-import './CheckOutItem.scss';
-
-import { CartContext } from '../../../context/CartContext';
 import { ReactComponent as PlusIcon } from '../../../assets/svg/plus-icon.svg';
 import { ReactComponent as MinusIcon } from '../../../assets/svg/minus-icon.svg';
-
-const removeType = {
-  minus: 'minus',
-  remove: 'remove',
-};
+import { addItem, minusItem, removeItem } from '../../../redux/action';
+import './CheckOutItem.scss';
 
 const CheckOutItem = ({ checkoutItem }) => {
-  const { addItemToCart, removeItemFromCart } = useContext(CartContext);
+  const dispatch = useDispatch();
   const { imageUrl, name, quantity, price } = checkoutItem;
   const handleAddItemToCart = () => {
-    addItemToCart(checkoutItem);
+    dispatch(addItem(checkoutItem));
   };
   const handleMinusItemFromCart = () => {
-    removeItemFromCart(checkoutItem, removeType['minus']);
+    dispatch(minusItem(checkoutItem));
   };
   const handleRemoveCheckOutItem = () => {
-    removeItemFromCart(checkoutItem, removeType['remove']);
+    dispatch(removeItem(checkoutItem));
   };
   return (
     <div className="checkout-item">

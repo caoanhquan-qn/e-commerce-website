@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useContext } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import CustomButton from '../custom-button/CustomButton';
 import './CartDropDown.scss';
-import { CartContext } from '../../context/CartContext';
 import CartItem from './components/CartItem';
 const CHECKOUT_BUTTON_TITLE = 'GO TO CHECKOUT';
 
 const CartDropDown = ({ onClickOutside }) => {
   const ref = useRef(null);
-  const { cartItems } = useContext(CartContext);
+  const { cartItems } = useSelector((state) => state.cart);
   const cartIcon = document.querySelector('.cart-icon-container');
   const productImg = document.querySelectorAll('.image');
   const removeIcon = document.querySelectorAll('.remove-icon');

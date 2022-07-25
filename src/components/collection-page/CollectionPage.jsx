@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import CollectionItem from '../collection-items/CollectionItem';
-import { ProductContext } from '../../context/ProductContext';
 import Spinner from 'react-bootstrap/Spinner';
 import './CollectionPage.scss';
 
 const CollectionPage = ({ collectionName }) => {
-  const { collections } = useContext(ProductContext);
+  const { collections } = useSelector((state) => state.collections);
   const collection = collections.find((collection) => collection.title.toLowerCase() === collectionName);
   if (collection) {
     const { title, items } = collection;

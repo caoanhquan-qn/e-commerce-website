@@ -1,16 +1,14 @@
 import React from 'react';
 import Collections from '../../components/collections/Collections';
-import { ProductContext } from '../../context/ProductContext';
+import { useSelector } from 'react-redux';
 
-class ShopPage extends React.Component {
-  static contextType = ProductContext;
-  render() {
-    return (
-      <div>
-        <Collections collections={this.context.collections} />
-      </div>
-    );
-  }
-}
+const ShopPage = () => {
+  const collections = useSelector((state) => state.collections.collections);
+  return (
+    <div>
+      <Collections collections={collections} />
+    </div>
+  );
+};
 
 export default ShopPage;

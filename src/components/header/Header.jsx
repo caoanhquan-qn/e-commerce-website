@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/svg/crown.svg';
-import './Header.scss';
 import { signOut } from '../../components/utils/fireBase';
-import { UserContext } from '../../context/UserContext';
 import CartIcon from '../cart-icon/CartIcon';
 import CartDropDown from '../cart-dropdown/CartDropDown';
+import './Header.scss';
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
-  const { currentUser } = useContext(UserContext);
+  const { currentUser } = useSelector((state) => state.user);
   const handleClickCartIcon = () => {
     setIsCartOpen(!isCartOpen);
   };

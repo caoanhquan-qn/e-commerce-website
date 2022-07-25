@@ -1,6 +1,7 @@
 import { FETCH_DATA, SET_CURRENT_USER, ADD_ITEM, REMOVE_ITEM, MINUS_ITEM } from './actionTypes';
-export const initialUserState = { currentUser: null };
-export const userReducer = (state = initialUserState, action) => {
+export const initialState = { currentUser: null, cartItems: [], collections: [] };
+export const initialUserState = { currentUser: 'tao day' };
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
@@ -48,8 +49,8 @@ export const cartReducer = (state = initialCartState, action) => {
   }
 };
 
-export const initialProductState = { collections: [] };
-export const productReducer = (state = initialProductState, action) => {
+export const initialCollectionsState = { collections: [] };
+export const collectionsReducer = (state = initialCollectionsState, action) => {
   switch (action.type) {
     case FETCH_DATA:
       return { ...state, collections: action.payload };
