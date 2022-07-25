@@ -1,20 +1,20 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { getCollectionsAndDocuments } from '../components/utils/fireBase';
-import { addCollectionAndDocuments } from '../components/utils/fireBase'; // one-off helper function
+import { fetchData } from '../redux/action';
+import { initialProductState, productReducer } from '../redux/reducer';
 
 export const ProductContext = createContext({
   collections: [],
 });
 
 export const ProductProvider = ({ children }) => {
-  const [collections, setCollections] = useState([]);
+  const [{ collections }, dispatch] = useReducer(productReducer, initialProductState);
   useEffect(() => {
-    // addCollectionAndDocuments('sections', SECTION_DATA);
     const fetchProductData = async () => {
       return await getCollectionsAndDocuments('categories');
     };
     fetchProductData()
-      .then((data) => setCollections(data))
+      .then((data) => dispatch(fetchData(data)))
       .catch((error) => console.log(error));
   }, []);
   return <ProductContext.Provider value={{ collections }}>{children}</ProductContext.Provider>;
