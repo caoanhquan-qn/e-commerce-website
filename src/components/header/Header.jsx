@@ -5,12 +5,13 @@ import { ReactComponent as Logo } from '../../assets/svg/crown.svg';
 import { signOut } from '../../components/utils/fireBase';
 import CartIcon from '../cart-icon/CartIcon';
 import CartDropDown from '../cart-dropdown/CartDropDown';
+import { selectCurrentUser } from '../../redux/selector';
 import './Header.scss';
 
 function Header() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
-  const { currentUser } = useSelector((state) => state.user);
+  const currentUser = useSelector(selectCurrentUser);
   const handleClickCartIcon = () => {
     setIsCartOpen(!isCartOpen);
   };

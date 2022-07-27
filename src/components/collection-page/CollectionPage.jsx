@@ -2,10 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import CollectionItem from '../collection-items/CollectionItem';
 import Spinner from 'react-bootstrap/Spinner';
+import { selectCollections } from '../../redux/selector';
 import './CollectionPage.scss';
 
 const CollectionPage = ({ collectionName }) => {
-  const { collections } = useSelector((state) => state.collections);
+  const collections = useSelector(selectCollections);
   const collection = collections.find((collection) => collection.title.toLowerCase() === collectionName);
   if (collection) {
     const { title, items } = collection;
