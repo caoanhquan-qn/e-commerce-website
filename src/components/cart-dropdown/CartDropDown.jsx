@@ -4,11 +4,12 @@ import { useSelector } from 'react-redux';
 import CustomButton from '../custom-button/CustomButton';
 import './CartDropDown.scss';
 import CartItem from './components/CartItem';
+import { selectCartItems } from '../../redux/selector';
 const CHECKOUT_BUTTON_TITLE = 'GO TO CHECKOUT';
 
 const CartDropDown = ({ onClickOutside }) => {
   const ref = useRef(null);
-  const { cartItems } = useSelector((state) => state.cart);
+  const cartItems = useSelector(selectCartItems);
   const cartIcon = document.querySelector('.cart-icon-container');
   const productImg = document.querySelectorAll('.image');
   const removeIcon = document.querySelectorAll('.remove-icon');

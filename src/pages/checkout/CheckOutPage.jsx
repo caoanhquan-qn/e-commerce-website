@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux';
 import CheckOutHeader from '../../components/checkout-header/CheckOutHeader';
 import CustomButton from '../../components/custom-button/CustomButton';
 import CheckOutItems from '../../components/checkout-items/CheckOutItems';
+import { selectCartItems } from '../../redux/selector';
 import './CheckOutPage.scss';
 
 const CheckOutPage = () => {
-  const { cartItems } = useSelector((state) => state.cart);
+  const cartItems = useSelector(selectCartItems);
   let total = 0;
   cartItems.forEach((item) => {
     total += item.quantity * item.price;
