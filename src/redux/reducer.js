@@ -1,7 +1,7 @@
+import { combineReducers } from 'redux';
 import { FETCH_DATA, SET_CURRENT_USER, ADD_ITEM, REMOVE_ITEM, MINUS_ITEM } from './actionTypes';
-export const initialState = { currentUser: null, cartItems: [], collections: [] };
-export const initialUserState = { currentUser: 'tao day' };
-export const userReducer = (state = initialState, action) => {
+const initialUserState = { currentUser: null };
+const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
@@ -13,8 +13,8 @@ export const userReducer = (state = initialState, action) => {
   }
 };
 
-export const initialCartState = { cartItems: [] };
-export const cartReducer = (state = initialCartState, action) => {
+const initialCartState = { cartItems: [] };
+const cartReducer = (state = initialCartState, action) => {
   switch (action.type) {
     case ADD_ITEM:
       const cartItem = state.cartItems.find((item) => item.id === action.payload.id);
@@ -49,8 +49,8 @@ export const cartReducer = (state = initialCartState, action) => {
   }
 };
 
-export const initialCollectionsState = { collections: [] };
-export const collectionsReducer = (state = initialCollectionsState, action) => {
+const initialCollectionsState = { collections: [] };
+const collectionsReducer = (state = initialCollectionsState, action) => {
   switch (action.type) {
     case FETCH_DATA:
       return { ...state, collections: action.payload };
@@ -58,3 +58,9 @@ export const collectionsReducer = (state = initialCollectionsState, action) => {
       return state;
   }
 };
+
+export default combineReducers({
+  user: userReducer,
+  cart: cartReducer,
+  collections: collectionsReducer,
+});
