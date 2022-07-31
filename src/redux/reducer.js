@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { FETCH_DATA, SET_CURRENT_USER, ADD_ITEM, REMOVE_ITEM, MINUS_ITEM } from './actionTypes';
+import { FETCH_DATA, SET_CURRENT_USER, ADD_ITEM, REMOVE_ITEM, MINUS_ITEM, FETCH_INITIAL_DATA } from './actionTypes';
 const initialUserState = { currentUser: null };
 const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
@@ -49,11 +49,13 @@ const cartReducer = (state = initialCartState, action) => {
   }
 };
 
-const initialCollectionsState = { collections: [] };
+const initialCollectionsState = { collections: [], sections: [] };
 const collectionsReducer = (state = initialCollectionsState, action) => {
   switch (action.type) {
     case FETCH_DATA:
       return { ...state, collections: action.payload };
+    case FETCH_INITIAL_DATA:
+      return { ...state, sections: action.payload };
     default:
       return state;
   }

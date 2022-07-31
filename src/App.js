@@ -8,8 +8,9 @@ import CollectionPage from './components/collection-page/CollectionPage';
 import Header from './components/header/Header';
 import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUpPage';
 import CheckOutPage from './pages/checkout/CheckOutPage';
-import { onAuthStateChanged, createUserProfileDocument, getCollectionsAndDocuments } from './components/utils/fireBase';
-import { setCurrentUser, fetchData } from './redux/action';
+import { onAuthStateChanged, createUserProfileDocument } from './components/utils/fireBase';
+import { setCurrentUser } from './redux/action';
+import { fetchDataByDataType } from './redux/thunk';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,7 @@ const App = () => {
       dispatch(setCurrentUser(user));
       createUserProfileDocument(user);
     });
-    const fetchProductData = async () => {
-      return await getCollectionsAndDocuments('categories');
-    };
-    fetchProductData()
-      .then((data) => dispatch(fetchData(data)))
-      .catch((error) => console.log(error));
+    dispatch(fetchDataByDataType('categories'));
     return unsubscribeFromAuth;
   }, []);
 
