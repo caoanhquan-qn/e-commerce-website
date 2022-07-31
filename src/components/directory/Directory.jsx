@@ -1,34 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDataByDataType } from '../../redux/thunk';
 import MenuItem from '../menu-item/MenuItem';
-import { getCollectionsAndDocuments } from '../utils/fireBase';
 import './Directory.scss';
 
-class Directory extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sections: [],
-    };
-  }
-  componentDidMount() {
-    const fetchSectionData = async () => {
-      return await getCollectionsAndDocuments('sections');
-    };
-    fetchSectionData()
-      .then((res) => {
-        const SECTION_DATA = res.sort((a, b) => a.id - b.id);
-        this.setState({ sections: SECTION_DATA });
-      })
-      .catch((error) => console.log(error));
-  }
-  render() {
-    return (
-      <div className="directory-menu">
-        {this.state.sections.map(({ title, id, imageUrl, size, linkUrl }) => {
-          return <MenuItem key={id} title={title.toUpperCase()} subtitle="SHOP NOW" imageUrl={imageUrl} size={size} linkUrl={linkUrl} />;
-        })}
-      </div>
-    );
-  }
-}
+const Directory = () => {
+  const dispatch = useDispatch();
+  const { sections } = useSelector((state) => state.collections);
+
+  useEffect(() => {
+    dispatch(fetchDataByDataType('sections'));
+  }, []);
+
+  return (
+    <div className="directory-menu">
+      {sections.map(({ title, id, imageUrl, size, linkUrl }) => {
+        return <MenuItem key={id} title={title.toUpperCase()} subtitle="SHOP NOW" imageUrl={imageUrl} size={size} linkUrl={linkUrl} />;
+      })}
+    </div>
+  );
+};
 export default Directory;
