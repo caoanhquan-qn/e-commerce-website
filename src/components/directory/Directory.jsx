@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDataByDataType } from '../../redux/thunk';
 import MenuItem from '../menu-item/MenuItem';
+import { selectSections } from '../../redux/selector';
 import './Directory.scss';
 
 const Directory = () => {
   const dispatch = useDispatch();
-  const { sections } = useSelector((state) => state.collections);
+  const sections = useSelector(selectSections);
 
   useEffect(() => {
     dispatch(fetchDataByDataType('sections'));
