@@ -283,4 +283,6 @@ const SHOP_DATA = [
   },
 ];
 
-export default SHOP_DATA;
+export default () => {
+  return Promise.resolve(SHOP_DATA);
+};

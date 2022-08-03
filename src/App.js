@@ -9,8 +9,7 @@ import Header from './components/header/Header';
 import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUpPage';
 import CheckOutPage from './pages/checkout/CheckOutPage';
 import { onAuthStateChanged, createUserProfileDocument } from './components/utils/fireBase';
-import { setCurrentUser } from './redux/action';
-import { fetchDataByDataType } from './redux/thunk';
+import { startFetchingData, setCurrentUser } from './redux/action';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,7 +18,7 @@ const App = () => {
       dispatch(setCurrentUser(user));
       createUserProfileDocument(user);
     });
-    dispatch(fetchDataByDataType('categories'));
+    dispatch(startFetchingData());
     return unsubscribeFromAuth;
   }, []);
 

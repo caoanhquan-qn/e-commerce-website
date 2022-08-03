@@ -32,4 +32,6 @@ const SECTION_DATA = [
     linkUrl: 'shop/mens',
   },
 ];
-export default SECTION_DATA;
+export default () => {
+  return Promise.resolve(SECTION_DATA);
+};
