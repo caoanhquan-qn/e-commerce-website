@@ -7,6 +7,10 @@ import {
   FETCH_INITIAL_DATA,
   START_FETCHING_DATA,
   START_FETCHING_INITIAL_DATA,
+  START_SETTING_CURRENT_USER,
+  START_SIGNING_OUT,
+  START_SIGNING_IN_WITH_GOOGLE,
+  START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD,
 } from './actionTypes';
 
 export const setCurrentUser = (user) => ({
@@ -37,3 +41,10 @@ export const fetchData = (collections) => ({
 export const fetchInitialData = (data) => ({ type: FETCH_INITIAL_DATA, payload: data });
 export const startFetchingData = () => ({ type: START_FETCHING_DATA });
 export const startFetchingInitialData = () => ({ type: START_FETCHING_INITIAL_DATA });
+export const startSettingCurrentUser = () => ({ type: START_SETTING_CURRENT_USER });
+export const startSigningOut = () => ({ type: START_SIGNING_OUT });
+export const startSigningInWithGoogle = () => ({ type: START_SIGNING_IN_WITH_GOOGLE });
+export const startSigningInWithEmailAndPassword = ({ email, password }) => ({
+  type: START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD,
+  payload: { email, password },
+});

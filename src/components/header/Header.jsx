@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/svg/crown.svg';
-import { signOut } from '../../components/utils/fireBase';
 import CartIcon from '../cart-icon/CartIcon';
 import CartDropDown from '../cart-dropdown/CartDropDown';
 import { selectCurrentUser } from '../../redux/selector';
+import { useDispatch } from 'react-redux';
+import { startSigningOut } from '../../redux/action';
 import './Header.scss';
 
 function Header() {
@@ -16,9 +17,15 @@ function Header() {
     setIsCartOpen(!isCartOpen);
   };
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     setIsCartOpen(false);
   }, [location.pathname]);
+
+  const handleSignOut = () => {
+    dispatch(startSigningOut());
+  };
 
   return (
     <div>
@@ -34,7 +41,7 @@ function Header() {
             CONTACT
           </Link>
           {currentUser ? (
-            <div className="option" onClick={signOut}>
+            <div className="option" onClick={handleSignOut}>
               SIGN OUT
             </div>
           ) : (
