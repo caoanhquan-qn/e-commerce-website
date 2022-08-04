@@ -8,18 +8,13 @@ import CollectionPage from './components/collection-page/CollectionPage';
 import Header from './components/header/Header';
 import SignInSignUpPage from './pages/sign-in-sign-up/SignInSignUpPage';
 import CheckOutPage from './pages/checkout/CheckOutPage';
-import { onAuthStateChanged, createUserProfileDocument } from './components/utils/fireBase';
-import { startFetchingData, setCurrentUser } from './redux/action';
+import { startFetchingData, startSettingCurrentUser } from './redux/action';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    const unsubscribeFromAuth = onAuthStateChanged((user) => {
-      dispatch(setCurrentUser(user));
-      createUserProfileDocument(user);
-    });
+    dispatch(startSettingCurrentUser());
     dispatch(startFetchingData());
-    return unsubscribeFromAuth;
   }, []);
 
   return (
