@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
-import { createAuthUserWithEmailAndPassword, createUserProfileDocument } from '../utils/fireBase';
+import { startSigningUp } from '../../redux/action';
 import './SignUp.scss';
 
 const SignUp = () => {
@@ -13,6 +14,7 @@ const SignUp = () => {
   };
   const [formFields, setFormFields] = useState(initialFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  const dispatch = useDispatch();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields((prevState) => ({
@@ -26,17 +28,8 @@ const SignUp = () => {
       alert('password does not match');
       return;
     }
-    try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
-      await createUserProfileDocument(user, { displayName });
-      setFormFields(initialFormFields);
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Cannot create user, email is already in use');
-      } else {
-        console.log(error);
-      }
-    }
+    dispatch(startSigningUp({ email, password, displayName }));
+    setFormFields(initialFormFields);
   };
   return (
     <div className="sign-up">

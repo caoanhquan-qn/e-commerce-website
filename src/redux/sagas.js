@@ -7,10 +7,18 @@ import {
   START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD,
   START_SIGNING_IN_WITH_GOOGLE,
   START_SIGNING_OUT,
+  START_SIGNING_UP,
 } from './actionTypes';
 import getInitialData from '../data/section.data';
 import getData from '../data/shop.data';
-import { getCurrentUser, signOut, signInWithGoogle, signInWithEmailAndPassword } from '../components/utils/fireBase';
+import {
+  getCurrentUser,
+  signOut,
+  signInWithGoogle,
+  signInWithEmailAndPassword,
+  createAuthUserWithEmailAndPassword,
+  createUserProfileDocument,
+} from '../components/utils/fireBase';
 
 function* fetchDataAsync() {
   try {
@@ -71,6 +79,18 @@ function* setSigningInWithEmailAndPasswordAsync({ payload: { email, password } }
     }
   }
 }
+function* setSigningUpAsync({ payload: { email, password, displayName } }) {
+  try {
+    const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
+    yield call(createUserProfileDocument, user, { displayName });
+  } catch (error) {
+    if (error.code === 'auth/email-already-in-use') {
+      alert('Cannot create user, email is already in use');
+    } else {
+      console.log(error);
+    }
+  }
+}
 function* onFetchInitialData() {
   yield takeLatest(START_FETCHING_INITIAL_DATA, fetchInitialDataAsync);
 }
@@ -89,6 +109,9 @@ function* onSigningInWithGoogle() {
 function* onSigningInWithEmailAndPassword() {
   yield takeLatest(START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD, setSigningInWithEmailAndPasswordAsync);
 }
+function* onSigningUp() {
+  yield takeLatest(START_SIGNING_UP, setSigningUpAsync);
+}
 function* rootSaga() {
   yield all([
     call(onFetchInitialData),
@@ -97,6 +120,7 @@ function* rootSaga() {
     call(onSigningOut),
     call(onSigningInWithGoogle),
     call(onSigningInWithEmailAndPassword),
+    call(onSigningUp),
   ]);
 }
 export default rootSaga;

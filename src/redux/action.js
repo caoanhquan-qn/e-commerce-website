@@ -11,6 +11,7 @@ import {
   START_SIGNING_OUT,
   START_SIGNING_IN_WITH_GOOGLE,
   START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD,
+  START_SIGNING_UP,
 } from './actionTypes';
 
 export const setCurrentUser = (user) => ({
@@ -48,3 +49,4 @@ export const startSigningInWithEmailAndPassword = ({ email, password }) => ({
   type: START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD,
   payload: { email, password },
 });
+export const startSigningUp = ({ email, password, displayName }) => ({ type: START_SIGNING_UP, payload: { email, password, displayName } });
