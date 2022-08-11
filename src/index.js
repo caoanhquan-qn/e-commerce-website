@@ -1,21 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
+import { Elements } from '@stripe/react-stripe-js';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { store } from './redux/store';
+import { persistor } from './redux/store';
+import { stripePromise } from './utils/stripe';
+import reportWebVitals from './reportWebVitals';
 import App from './App';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import reportWebVitals from './reportWebVitals';
-import { PersistGate } from 'redux-persist/integration/react';
-import { Spinner } from 'react-bootstrap';
-import { persistor } from './redux/store';
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={<Spinner />} persistor={persistor}>
       <BrowserRouter>
-        <App />
+        <Elements stripe={stripePromise}>
+          <App />
+        </Elements>
       </BrowserRouter>
     </PersistGate>
   </Provider>,
