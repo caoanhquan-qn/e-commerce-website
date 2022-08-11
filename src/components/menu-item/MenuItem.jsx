@@ -1,7 +1,7 @@
 import React from 'react';
 import './MenuItem.scss';
 import { useNavigate } from 'react-router-dom';
-import { withRouter } from '../utils/withRouter';
+import { withRouter } from '../../utils/withRouter';
 
 function MenuItem(props) {
   const { title, subtitle, imageUrl, size, linkUrl } = props;

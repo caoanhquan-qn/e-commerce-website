@@ -18,7 +18,7 @@ import {
   signInWithEmailAndPassword,
   createAuthUserWithEmailAndPassword,
   createUserProfileDocument,
-} from '../components/utils/fireBase';
+} from '../utils/fireBase';
 
 function* fetchDataAsync() {
   try {
@@ -82,7 +82,10 @@ function* setSigningInWithEmailAndPasswordAsync({ payload: { email, password } }
 function* setSigningUpAsync({ payload: { email, password, displayName } }) {
   try {
     const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
-    yield call(createUserProfileDocument, user, { displayName });
+    const userRef = yield call(createUserProfileDocument, user, { displayName });
+    const userSnapShot = yield userRef.get();
+    const userDoc = yield userSnapShot.data();
+    yield put(setCurrentUser(userDoc));
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
       alert('Cannot create user, email is already in use');
