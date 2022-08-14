@@ -1,0 +1,12 @@
+.payment-form-container {
+  height: 300px;
+  width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 20px;
+  h2 {
+    font-size: 16px;
+  }
+}
