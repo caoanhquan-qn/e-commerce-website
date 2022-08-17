@@ -17,3 +17,7 @@ You may also see any lint errors in the console.
 ### Deployment
 
 This section has moved here: [https://e-commerce-website-theta.vercel.app/](https://e-commerce-website-theta.vercel.app/)
+
+### Test credit card for payments
+
+4242 4242 4242 4242 - Exp: 04/24 - CVV: 123 - ZIP: 70000

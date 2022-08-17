@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import CheckOutHeader from '../../components/checkout-header/CheckOutHeader';
 import CheckOutItems from '../../components/checkout-items/CheckOutItems';
 import { selectCartItems } from '../../redux/selector';
-import './CheckOutPage.scss';
 import PaymentForm from '../../components/payment-form/PaymentForm';
+import './CheckOutPage.scss';
 
 const CheckOutPage = () => {
   const cartItems = useSelector(selectCartItems);
@@ -19,7 +19,7 @@ const CheckOutPage = () => {
       <div className="checkout-footer">
         <div className="total">TOTAL: ${total}</div>
       </div>
-      <PaymentForm />
+      <PaymentForm amount={total} />
     </div>
   );
 };
