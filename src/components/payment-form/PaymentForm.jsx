@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Toast } from 'react-bootstrap';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import CustomButton from '../custom-button/CustomButton';
+import { selectCurrentUser } from '../../redux/selector';
 import './PaymentForm.scss';
 
 const PaymentForm = ({ amount }) => {
   const stripe = useStripe();
   const elements = useElements();
   const amountInCents = amount * 100;
+  const currentUser = useSelector(selectCurrentUser);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const paymentHandler = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) return;
+    setIsProcessingPayment(true);
     const response = await fetch('/api/create-payment-intent.js', {
       method: 'post',
       headers: {
@@ -23,15 +30,16 @@ const PaymentForm = ({ amount }) => {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-          name: 'Quan',
+          name: currentUser ? currentUser.displayName : 'Guest',
         },
       },
     });
+    setIsProcessingPayment(false);
     if (paymentResult.error) {
       alert(paymentResult.error);
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
-        alert('Successful Payment');
+        setShowToast(true);
       }
     }
   };
@@ -39,7 +47,15 @@ const PaymentForm = ({ amount }) => {
     <form className="payment-form-container" onSubmit={paymentHandler}>
       <h2>Credit Card Payment: </h2>
       <CardElement />
-      <CustomButton buttonType="default">Pay Now</CustomButton>
+      <CustomButton buttonType="default" isLoading={isProcessingPayment}>
+        Pay Now
+      </CustomButton>
+      <Toast className="d-inline-block m-1" bg="primary" onClose={() => setShowToast(false)} show={showToast} delay={5000} autohide>
+        <Toast.Header>
+          <strong className="me-auto">Stripe</strong>
+        </Toast.Header>
+        <Toast.Body className="text-white">Successful Payment</Toast.Body>
+      </Toast>
     </form>
   );
 };
