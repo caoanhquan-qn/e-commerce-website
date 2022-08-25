@@ -10,7 +10,6 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
@@ -21,3 +20,7 @@ This section has moved here: [https://e-commerce-website-theta.vercel.app/](http
 ### Test credit card for payments
 
 4242 4242 4242 4242 - Exp: 04/24 - CVV: 123 - ZIP: 70000
+
+### `vercel dev`
+
+Run on localhost with serverless function

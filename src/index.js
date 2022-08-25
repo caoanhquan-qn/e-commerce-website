@@ -15,7 +15,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={<Spinner />} persistor={persistor}>
+    <PersistGate loading={<Spinner animation="border" role="status" />} persistor={persistor}>
       <BrowserRouter>
         <Elements stripe={stripePromise}>
           <App />
