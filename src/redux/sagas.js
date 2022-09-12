@@ -1,14 +1,6 @@
 import { put, takeLatest, all, call } from 'redux-saga/effects';
 import { fetchData, fetchInitialData, setCurrentUser } from './action';
-import {
-  START_FETCHING_DATA,
-  START_FETCHING_INITIAL_DATA,
-  START_SETTING_CURRENT_USER,
-  START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD,
-  START_SIGNING_IN_WITH_GOOGLE,
-  START_SIGNING_OUT,
-  START_SIGNING_UP,
-} from './actionTypes';
+import { ACTION_TYPES } from './actionTypes';
 import getInitialData from '../data/section.data';
 import getData from '../data/shop.data';
 import {
@@ -95,25 +87,25 @@ function* setSigningUpAsync({ payload: { email, password, displayName } }) {
   }
 }
 function* onFetchInitialData() {
-  yield takeLatest(START_FETCHING_INITIAL_DATA, fetchInitialDataAsync);
+  yield takeLatest(ACTION_TYPES.START_FETCHING_INITIAL_DATA, fetchInitialDataAsync);
 }
 function* onFetchData() {
-  yield takeLatest(START_FETCHING_DATA, fetchDataAsync);
+  yield takeLatest(ACTION_TYPES.START_FETCHING_DATA, fetchDataAsync);
 }
 function* onSetCurrentUser() {
-  yield takeLatest(START_SETTING_CURRENT_USER, setCurrentUserAsync);
+  yield takeLatest(ACTION_TYPES.START_SETTING_CURRENT_USER, setCurrentUserAsync);
 }
 function* onSigningOut() {
-  yield takeLatest(START_SIGNING_OUT, setSigningOutAsync);
+  yield takeLatest(ACTION_TYPES.START_SIGNING_OUT, setSigningOutAsync);
 }
 function* onSigningInWithGoogle() {
-  yield takeLatest(START_SIGNING_IN_WITH_GOOGLE, setSigningInWithGoolgeAsync);
+  yield takeLatest(ACTION_TYPES.START_SIGNING_IN_WITH_GOOGLE, setSigningInWithGoolgeAsync);
 }
 function* onSigningInWithEmailAndPassword() {
-  yield takeLatest(START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD, setSigningInWithEmailAndPasswordAsync);
+  yield takeLatest(ACTION_TYPES.START_SIGNING_IN_WITH_EMAIL_AND_PASSWORD, setSigningInWithEmailAndPasswordAsync);
 }
 function* onSigningUp() {
-  yield takeLatest(START_SIGNING_UP, setSigningUpAsync);
+  yield takeLatest(ACTION_TYPES.START_SIGNING_UP, setSigningUpAsync);
 }
 function* rootSaga() {
   yield all([

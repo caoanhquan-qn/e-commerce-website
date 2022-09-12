@@ -1,6 +1,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import { User } from '@firebase/auth-types';
+import { additionalDataType } from '../redux/types';
 
 const config = {
   apiKey: 'AIzaSyDrJweqaPEnOznQ_aazWB1ad6a6D8H1AfY',
@@ -11,7 +13,7 @@ const config = {
   appId: '1:8284649763:web:27a36bdbadffa8342fb496',
 };
 
-export const createUserProfileDocument = async (userAuth, additionalData = {}) => {
+export const createUserProfileDocument = async (userAuth: User, additionalData = {} as additionalDataType) => {
   if (!userAuth) return;
   const userRef = firestore.doc(`/users/${userAuth.uid}`);
   const snapShot = await userRef.get();
@@ -26,28 +28,18 @@ export const createUserProfileDocument = async (userAuth, additionalData = {}) =
         email,
         ...additionalData,
       });
-    } catch (error) {
-      console.error(error.message);
+    } catch (e) {
+      if (typeof e === 'string') {
+        console.log(e);
+      } else if (e instanceof Error) {
+        console.log(e.message);
+      }
     }
   }
   return userRef;
 };
 
 firebase.initializeApp(config);
-
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
-  const batch = firestore.batch();
-  objectsToAdd.forEach((obj) => {
-    const docRef = firestore.doc(`/${collectionKey}/${obj.title.toLowerCase()}`);
-    batch.set(docRef, obj);
-  });
-  await batch.commit();
-};
-
-export const getCollectionsAndDocuments = async (collectionName) => {
-  const snapshot = await firestore.collection(`/${collectionName}`).get();
-  return snapshot.docs.map((doc) => doc.data());
-};
 
 export const auth = firebase.auth(); // singleton
 export const firestore = firebase.firestore();
@@ -57,18 +49,18 @@ googleProvider.setCustomParameters({
   prompt: 'select_account',
 });
 
-export const createAuthUserWithEmailAndPassword = async (email, password) => {
+export const createAuthUserWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
   return await auth.createUserWithEmailAndPassword(email, password);
 };
 export const signInWithGoogle = async () => await auth.signInWithPopup(googleProvider);
 export const signInWithGoogleRedirect = async () => await auth.signInWithRedirect(googleProvider);
-export const signInWithEmailAndPassword = async (email, password) => {
+export const signInWithEmailAndPassword = async (email: string, password: string) => {
   if (!email || !password) return;
   return await auth.signInWithEmailAndPassword(email, password);
 };
 export const signOut = async () => await auth.signOut();
-export const getCurrentUser = () => {
+export const getCurrentUser = (): Promise<User | null> => {
   return new Promise((resolve, reject) => {
     const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
       unsubscribeFromAuth();
