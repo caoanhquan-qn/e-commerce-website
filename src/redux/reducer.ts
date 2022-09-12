@@ -3,7 +3,7 @@ import { ACTION_TYPES } from './actionTypes';
 import { userType, productType, cartType, collectionsType, itemActionType } from './types';
 
 const initialUserState: userType = { currentUser: null };
-const userReducer = (state = initialUserState, action: AnyAction) => {
+const userReducer = (state = initialUserState, action: AnyAction): userType => {
   switch (action.type) {
     case ACTION_TYPES.SET_CURRENT_USER:
       return {
@@ -52,7 +52,7 @@ const cartReducer = (state = initialCartState, action: itemActionType): cartType
 };
 
 const initialCollectionsState: collectionsType = { collections: [], sections: [] };
-const collectionsReducer = (state = initialCollectionsState, action: AnyAction) => {
+const collectionsReducer = (state = initialCollectionsState, action: AnyAction): collectionsType => {
   switch (action.type) {
     case ACTION_TYPES.FETCH_DATA:
       return { ...state, collections: action.payload };

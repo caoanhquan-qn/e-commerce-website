@@ -1,5 +1,7 @@
 import { ACTION_TYPES } from './actionTypes';
 import { User } from '@firebase/auth-types';
+import { PersistConfig } from 'redux-persist';
+import rootReducer from './reducer';
 export type productType = {
   id: number;
   name: string;
@@ -42,10 +44,10 @@ export type collectionsType = {
   readonly sections: sectionType[];
 };
 
-export type stateType = {
-  user: userType;
-  cart: cartType;
-  collections: collectionsType;
+export type rootReducerType = ReturnType<typeof rootReducer>;
+
+export type persistConfigType = PersistConfig<rootReducerType> & {
+  whitelist: (keyof rootReducerType)[];
 };
 
 export type additionalDataType = {
