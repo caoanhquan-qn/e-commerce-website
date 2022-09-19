@@ -5,7 +5,9 @@ import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import rootSaga from './sagas';
 import rootReducer from './reducer';
-const persistConfig = {
+import { persistConfigType } from './types';
+
+const persistConfig: persistConfigType = {
   key: 'root',
   storage,
   whitelist: ['cart'],
