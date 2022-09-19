@@ -20,7 +20,7 @@ export type collectionType = {
 export type sectionType = {
   title: string;
   imageUrl: string;
-  size: string;
+  size?: string;
   id: number;
   linkUrl: string;
 };
@@ -67,3 +67,17 @@ type addItemActionType = ActionWithPayload<ACTION_TYPES.ADD_ITEM, productType>;
 type removeItemActionType = ActionWithPayload<ACTION_TYPES.REMOVE_ITEM, productType>;
 type minusItemActionType = ActionWithPayload<ACTION_TYPES.MINUS_ITEM, productType>;
 export type itemActionType = addItemActionType | removeItemActionType | minusItemActionType;
+
+export type itemType = {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+};
+
+export type shopDataType = {
+  id: number;
+  title: string;
+  routeName: string;
+  items: itemType[];
+};

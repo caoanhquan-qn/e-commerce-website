@@ -1,8 +1,9 @@
-import { sectionType, productType, collectionType, AuthType, itemActionType } from './types';
+import { sectionType, productType, AuthType, itemActionType, shopDataType } from './types';
 import { actionCreator } from './utils';
 import { ACTION_TYPES } from './actionTypes';
+import { User } from '@firebase/auth-types';
 
-export const setCurrentUser = (user: object | null) => ({
+export const setCurrentUser = (user: User | null) => ({
   type: ACTION_TYPES.SET_CURRENT_USER,
   payload: user,
 });
@@ -11,7 +12,7 @@ export const addItem = (productToAdd: productType): itemActionType => actionCrea
 export const removeItem = (productToRemove: productType): itemActionType => actionCreator(ACTION_TYPES.REMOVE_ITEM, productToRemove);
 export const minusItem = (productToRemove: productType): itemActionType => actionCreator(ACTION_TYPES.MINUS_ITEM, productToRemove);
 
-export const fetchData = (collections: collectionType[]) => ({
+export const fetchData = (collections: shopDataType[]) => ({
   type: ACTION_TYPES.FETCH_DATA,
   payload: collections,
 });

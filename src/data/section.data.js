@@ -33,5 +33,7 @@ const SECTION_DATA = [
   },
 ];
 export default () => {
-  return Promise.resolve(SECTION_DATA);
+  return new Promise((resolve) => {
+    resolve(SECTION_DATA);
+  });
 };
