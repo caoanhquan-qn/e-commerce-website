@@ -5,7 +5,7 @@ import { User } from '@firebase/auth-types';
 import { additionalDataType } from '../redux/types';
 
 const config = {
-  apiKey: `${process.env.GOOGLE_API_KEY}`,
+  apiKey: `${process.env.REACT_APP_GOOGLE_API_KEY}`,
   authDomain: 'clothing-db-2022.firebaseapp.com',
   projectId: 'clothing-db-2022',
   storageBucket: 'clothing-db-2022.appspot.com',

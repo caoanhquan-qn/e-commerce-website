@@ -14,10 +14,6 @@ import {
   createUserProfileDocument,
 } from '../utils/fireBase';
 
-// import * as Effects from 'redux-saga/effects';
-
-// const call: any = Effects.call;
-
 function* fetchDataAsync() {
   try {
     const data = yield* call(getData);
