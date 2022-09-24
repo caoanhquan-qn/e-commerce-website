@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import './FormInput.scss';
 
-function FormInput({ name, type, value, label, handleChange }) {
+type formInputType = {
+  name: string;
+  type: string;
+  value: string;
+  label: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+function FormInput({ name, type, value, label, handleChange }: formInputType) {
   return (
     <div className="group">
       <input

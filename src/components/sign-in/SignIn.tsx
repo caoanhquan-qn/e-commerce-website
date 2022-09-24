@@ -1,25 +1,35 @@
-import React from 'react';
-import './SignIn.scss';
+import React, { FormEvent } from 'react';
 import FormInput from '../form-input/FormInput';
 import CustomButton from '../custom-button/CustomButton';
 import { startSigningInWithEmailAndPassword, startSigningInWithGoogle } from '../../redux/action';
+import { AuthType } from '../../redux/types';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import './SignIn.scss';
 
-class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-  handleChange = (event) => {
+type MyState = {
+  email: string;
+  password: string;
+};
+
+type MyProps = {
+  handleSignInWithEmailAndPassword: (a: AuthType) => void;
+  handleSignInWithGoogle: () => void;
+};
+
+class SignIn extends React.Component<MyProps, MyState> {
+  state: MyState = {
+    email: '',
+    password: '',
+  };
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
     this.setState({
+      ...this.state,
       [name]: value,
     });
   };
-  handleSubmit = async (event) => {
+  handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { email, password } = this.state;
     this.props.handleSignInWithEmailAndPassword({ email, password });
@@ -51,9 +61,9 @@ class SignIn extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    handleSignInWithEmailAndPassword: ({ email, password }) => dispatch(startSigningInWithEmailAndPassword({ email, password })),
+    handleSignInWithEmailAndPassword: ({ email, password }: AuthType) => dispatch(startSigningInWithEmailAndPassword({ email, password })),
     handleSignInWithGoogle: () => dispatch(startSigningInWithGoogle()),
   };
 };

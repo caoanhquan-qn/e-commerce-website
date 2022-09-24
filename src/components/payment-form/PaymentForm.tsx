@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Toast } from 'react-bootstrap';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -6,14 +6,18 @@ import CustomButton from '../custom-button/CustomButton';
 import { selectCurrentUser } from '../../redux/selector';
 import './PaymentForm.scss';
 
-const PaymentForm = ({ amount }) => {
+interface IPaymentForm {
+  amount: number;
+}
+
+const PaymentForm = ({ amount }: IPaymentForm) => {
   const stripe = useStripe();
   const elements = useElements();
   const amountInCents = amount * 100;
   const currentUser = useSelector(selectCurrentUser);
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const paymentHandler = async (e) => {
+  const paymentHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!stripe || !elements) return;
     setIsProcessingPayment(true);
@@ -26,20 +30,23 @@ const PaymentForm = ({ amount }) => {
     }).then((res) => res.json());
 
     const { client_secret } = response.paymentIntent;
-    const paymentResult = await stripe.confirmCardPayment(client_secret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-        billing_details: {
-          name: currentUser ? currentUser.displayName : 'Guest',
+    const cardElement = elements.getElement(CardElement);
+    if (cardElement) {
+      const paymentResult = await stripe.confirmCardPayment(client_secret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: currentUser && currentUser.displayName ? currentUser.displayName : 'Guest',
+          },
         },
-      },
-    });
-    setIsProcessingPayment(false);
-    if (paymentResult.error) {
-      alert(paymentResult.error);
-    } else {
-      if (paymentResult.paymentIntent.status === 'succeeded') {
-        setShowToast(true);
+      });
+      setIsProcessingPayment(false);
+      if (paymentResult.error) {
+        alert(paymentResult.error);
+      } else {
+        if (paymentResult.paymentIntent.status === 'succeeded') {
+          setShowToast(true);
+        }
       }
     }
   };

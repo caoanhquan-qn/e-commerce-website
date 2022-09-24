@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { collectionType } from '../../redux/types';
 import CollectionItem from '../collection-items/CollectionItem';
 import './Collections.scss';
 
-function Collections({ collections }) {
+type collectionsPropsType = {
+  collections: collectionType[];
+};
+
+function Collections({ collections }: collectionsPropsType) {
   const navigate = useNavigate();
-  const handleClickTitle = (event) => {
-    const title = event.target.innerHTML.toLowerCase();
+  const handleClickTitle = (event: MouseEvent) => {
+    const title = (event.target as HTMLSpanElement).innerHTML.toLowerCase();
     navigate(`/shop/${title}`);
   };
 

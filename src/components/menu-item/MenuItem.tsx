@@ -1,9 +1,15 @@
 import React from 'react';
-import './MenuItem.scss';
 import { useNavigate } from 'react-router-dom';
-import { withRouter } from '../../utils/withRouter';
+import './MenuItem.scss';
+interface IMenu {
+  title: string;
+  subtitle: string;
+  imageUrl: string;
+  size?: string;
+  linkUrl: string;
+}
 
-function MenuItem(props) {
+function MenuItem(props: IMenu) {
   const { title, subtitle, imageUrl, size, linkUrl } = props;
   const style = {
     backgroundImage: `url(${imageUrl})`,
@@ -21,4 +27,4 @@ function MenuItem(props) {
   );
 }
 
-export default withRouter(MenuItem);
+export default MenuItem;

@@ -4,9 +4,14 @@ import removeIcon from '../../../assets/img/remove.png';
 import { ReactComponent as PlusIcon } from '../../../assets/svg/plus-icon.svg';
 import { ReactComponent as MinusIcon } from '../../../assets/svg/minus-icon.svg';
 import { addItem, minusItem, removeItem } from '../../../redux/action';
+import { productType } from '../../../redux/types';
 import './CheckOutItem.scss';
 
-const CheckOutItem = ({ checkoutItem }) => {
+type checkOutItemPropType = {
+  checkoutItem: productType;
+};
+
+const CheckOutItem = ({ checkoutItem }: checkOutItemPropType) => {
   const dispatch = useDispatch();
   const { imageUrl, name, quantity, price } = checkoutItem;
   const handleAddItemToCart = () => {
