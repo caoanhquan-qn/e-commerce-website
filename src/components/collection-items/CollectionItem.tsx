@@ -1,8 +1,14 @@
 import React from 'react';
 import Product from './components/Product';
 import './CollectionItem.scss';
+import { collectionType, productType } from '../../redux/types';
 
-function CollectionItem({ collectionItem, productNumber }) {
+type collectionItemPropsType = {
+  collectionItem: productType[];
+  productNumber: number;
+};
+
+function CollectionItem({ collectionItem, productNumber }: collectionItemPropsType) {
   return (
     <div className="collection-items">
       {collectionItem

@@ -5,7 +5,11 @@ import Spinner from 'react-bootstrap/Spinner';
 import { selectCollections } from '../../redux/selector';
 import './CollectionPage.scss';
 
-const CollectionPage = ({ collectionName }) => {
+type collectionPagePropsType = {
+  collectionName: string;
+};
+
+const CollectionPage = ({ collectionName }: collectionPagePropsType) => {
   const collections = useSelector(selectCollections);
   const collection = collections.find((collection) => collection.title.toLowerCase() === collectionName);
   if (collection) {

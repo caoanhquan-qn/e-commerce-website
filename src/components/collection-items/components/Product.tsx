@@ -4,10 +4,15 @@ import './Product.scss';
 
 import { useDispatch } from 'react-redux';
 import { addItem } from '../../../redux/action';
+import { productType } from '../../../redux/types';
 
 const ADD_TO_CART_BUTTON_TITLE = 'ADD TO CART';
 
-const Product = ({ product }) => {
+type productPropsType = {
+  product: productType;
+};
+
+const Product = ({ product }: productPropsType) => {
   const { imageUrl, name, price } = product;
   const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();

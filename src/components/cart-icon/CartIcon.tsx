@@ -4,7 +4,11 @@ import { ReactComponent as ShoppingBag } from '../../assets/svg/shopping-bag.svg
 import { selectCartItems } from '../../redux/selector';
 import './CartIcon.scss';
 
-const CartIcon = ({ onClick }) => {
+type cartIconPropsType = {
+  onClick: () => void;
+};
+
+const CartIcon = ({ onClick }: cartIconPropsType) => {
   const cartItems = useSelector(selectCartItems);
   const totalAmount = cartItems.map((item) => item.quantity).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
   return (

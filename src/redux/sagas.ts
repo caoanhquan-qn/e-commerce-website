@@ -1,5 +1,5 @@
 import { put, takeLatest, all, call } from 'typed-redux-saga/macro';
-import { FirebaseError } from '@firebase/util';
+import { AuthError, AuthErrorCodes } from 'firebase/auth';
 import { fetchData, fetchInitialData, setCurrentUser } from './action';
 import { ACTION_TYPES } from './actionTypes';
 import { ActionWithPayload, AuthType, sectionType } from './types';
@@ -67,20 +67,16 @@ function* setSigningInWithEmailAndPasswordAsync({
       yield* put(setCurrentUser(user));
     }
   } catch (error) {
-    if (typeof error === 'string') {
-      console.log(error);
-    } else if (error instanceof FirebaseError) {
-      switch (error.code) {
-        case 'auth/wrong-password':
-          alert(`The password that you've entered is incorrect`);
-          break;
-        case 'auth/user-not-found':
-          alert(`The email address you entered isn't connected to an account`);
-          break;
-        default:
-          console.log(error);
-          break;
-      }
+    switch ((error as AuthError).code) {
+      case AuthErrorCodes.INVALID_PASSWORD:
+        alert(`The password that you've entered is incorrect`);
+        break;
+      case AuthErrorCodes.USER_DELETED:
+        alert(`The email address you entered isn't connected to an account`);
+        break;
+      default:
+        console.log(error);
+        break;
     }
   }
 }
@@ -95,17 +91,13 @@ function* setSigningUpAsync({ payload: { email, password, displayName } }: Actio
       }
     }
   } catch (error) {
-    if (typeof error === 'string') {
-      console.log(error);
-    } else if (error instanceof FirebaseError) {
-      switch (error.code) {
-        case 'auth/email-already-in-use':
-          alert('Cannot create user, email is already in use');
-          break;
-        default:
-          console.log(error);
-          break;
-      }
+    switch ((error as AuthError).code) {
+      case AuthErrorCodes.EMAIL_EXISTS:
+        alert('Cannot create user, email is already in use');
+        break;
+      default:
+        console.log(error);
+        break;
     }
   }
 }
